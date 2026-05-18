@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des Étudiants</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; color: #333; }
+        header { background: #1a73e8; color: white; padding: 1.5rem 2rem; }
+        header h1 { font-size: 1.5rem; font-weight: 600; }
+        .container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+        .card { background: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,.1); padding: 1.5rem; margin-bottom: 1rem; }
+        table { width: 100%; border-collapse: collapse; }
+        th { background: #f8f9fa; padding: 0.75rem 1rem; text-align: left; font-size: .85rem; color: #666; text-transform: uppercase; letter-spacing: .05em; border-bottom: 2px solid #e9ecef; }
+        td { padding: 0.85rem 1rem; border-bottom: 1px solid #f0f0f0; font-size: .95rem; }
+        tr:hover td { background: #f8f9ff; }
+        .badge { display: inline-block; padding: .2em .6em; border-radius: 12px; font-size: .75rem; font-weight: 600; background: #e8f0fe; color: #1a73e8; }
+        .spinner { text-align: center; padding: 2rem; color: #666; }
+        .error { color: #d32f2f; padding: 1rem; background: #ffebee; border-radius: 6px; }
+        h2 { font-size: 1.1rem; color: #444; margin-bottom: 1rem; }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Gestion des Étudiants</h1>
+</header>
+<div class="container">
+    <div class="card">
+        <h2>Liste des étudiants</h2>
+        <div id="loading" class="spinner">Chargement...</div>
+        <div id="error" class="error" style="display:none"></div>
+        <table id="table" style="display:none">
+            <thead>
+                <tr>
+                    <th>CIN</th>
+                    <th>Nom</th>
+                    <th>Date de naissance</th>
+                    <th>Âge</th>
+                    <th>Département</th>
+                    <th>Année d'inscription</th>
+                </tr>
+            </thead>
+            <tbody id="tbody"></tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    fetch('/api/etudiants')
+        .then(res => {
+            if (!res.ok) throw new Error('Erreur ' + res.status);
+            return res.json();
+        })
+        .then(data => {
+            document.getElementById('loading').style.display = 'none';
+            const table = document.getElementById('table');
+            table.style.display = 'table';
+            const tbody = document.getElementById('tbody');
+            data.forEach(e => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${e.cin}</td>
+                    <td>${e.nom}</td>
+                    <td>${e.dateNaissance}</td>
+                    <td>${e.age} ans</td>
+                    <td>${e.departementNom ? `<span class="badge">${e.departementNom}</span>` : '—'}</td>
+                    <td>${e.anneePremiereInscription}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        })
+        .catch(err => {
+            document.getElementById('loading').style.display = 'none';
+            const errEl = document.getElementById('error');
+            errEl.style.display = 'block';
+            errEl.textContent = 'Impossible de charger les étudiants : ' + err.message;
+        });
+</script>
+</body>
+</html>
