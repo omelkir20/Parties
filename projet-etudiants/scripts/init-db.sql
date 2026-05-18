@@ -1,0 +1,2 @@
+CREATE DATABASE etudiants;
+CREATE DATABASE notes;
