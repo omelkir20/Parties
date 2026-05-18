@@ -1,0 +1,17 @@
+postgres         | 2026-05-18 23:39:56.526 | 
+postgres         | 2026-05-18 23:39:56.526 | PostgreSQL Database directory appears to contain a database; Skipping initialization
+postgres         | 2026-05-18 23:39:56.526 | 
+postgres         | 2026-05-18 23:39:57.119 | 2026-05-18 21:39:57.119 UTC [1] LOG:  starting PostgreSQL 16.14 on x86_64-pc-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit
+postgres         | 2026-05-18 23:39:57.123 | 2026-05-18 21:39:57.120 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+postgres         | 2026-05-18 23:39:57.124 | 2026-05-18 21:39:57.120 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+postgres         | 2026-05-18 23:39:57.167 | 2026-05-18 21:39:57.167 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+postgres         | 2026-05-18 23:39:57.231 | 2026-05-18 21:39:57.230 UTC [30] LOG:  database system was shut down at 2026-05-18 21:39:28 UTC
+postgres         | 2026-05-18 23:39:57.312 | 2026-05-18 21:39:57.311 UTC [1] LOG:  database system is ready to accept connections
+postgres         | 2026-05-18 23:40:36.041 | 2026-05-18 21:40:36.040 UTC [56] FATAL:  database "notes" does not exist
+postgres         | 2026-05-18 23:40:37.168 | 2026-05-18 21:40:37.168 UTC [57] FATAL:  database "etudiants" does not exist
+postgres         | 2026-05-18 23:40:42.270 | 2026-05-18 21:40:42.270 UTC [65] FATAL:  database "notes" does not exist
+postgres         | 2026-05-18 23:40:43.217 | 2026-05-18 21:40:43.216 UTC [66] FATAL:  database "etudiants" does not exist
+postgres         | 2026-05-18 23:40:59.998 | 2026-05-18 21:40:59.997 UTC [82] FATAL:  database "notes" does not exist
+postgres         | 2026-05-18 23:41:00.509 | 2026-05-18 21:41:00.509 UTC [83] FATAL:  database "etudiants" does not exist
+postgres         | 2026-05-18 23:41:03.355 | 2026-05-18 21:41:03.354 UTC [84] FATAL:  database "notes" does not exist
+postgres         | 2026-05-18 23:41:04.601 | 2026-05-18 21:41:04.601 UTC [85] FATAL:  database "etudiants" does not exist
