@@ -1,0 +1,120 @@
+C:\Users\omelk\Desktop\projet-etudiants>docker compose up --build
+[+] Building 447.8s (43/55)                                                                               
+ => [internal] load local bake definitions                                                           0.0s
+ => => reading from stdin 2.72kB                                                                     0.0s
+ => [eureka-server internal] load build definition from Dockerfile                                   0.3s
+ => => transferring dockerfile: 355B                                                                 0.0s
+ => [grading-service internal] load build definition from Dockerfile                                 0.3s
+ => => transferring dockerfile: 355B                                                                 0.0s
+ => [etudiant-service internal] load build definition from Dockerfile                                0.3s
+ => => transferring dockerfile: 355B                                                                 0.0s
+ => [api-gateway internal] load build definition from Dockerfile                                     0.3s
+ => => transferring dockerfile: 355B                                                                 0.0s
+ => [frontend internal] load build definition from Dockerfile                                        0.2s
+ => => transferring dockerfile: 470B                                                                 0.1s
+ => [frontend internal] load metadata for docker.io/library/node:20-alpine                           2.8s
+ => [eureka-server internal] load metadata for docker.io/library/maven:3.9-eclipse-temurin-21        4.4s
+ => [grading-service internal] load metadata for docker.io/library/eclipse-temurin:21-jre-alpine     4.5s
+ => [auth] library/maven:pull token for registry-1.docker.io                                         0.0s
+ => [auth] library/node:pull token for registry-1.docker.io                                          0.0s
+ => [auth] library/eclipse-temurin:pull token for registry-1.docker.io                               0.0s
+ => [frontend internal] load .dockerignore                                                           0.0s
+ => => transferring context: 2B                                                                      0.0s
+ => [frontend internal] load build context                                                           7.8s
+ => => transferring context: 24.10kB                                                                 6.2s
+ => [frontend builder 1/6] FROM docker.io/library/node:20-alpine@sha256:fb4cd12c85ee03686f6af5362a0  0.1s
+ => => resolve docker.io/library/node:20-alpine@sha256:fb4cd12c85ee03686f6af5362a0b0d56d50c58a04632  0.1s
+ => CACHED [frontend builder 2/6] WORKDIR /app                                                       0.0s
+ => [etudiant-service internal] load .dockerignore                                                   0.2s
+ => => transferring context: 2B                                                                      0.0s
+ => [grading-service internal] load .dockerignore                                                    0.3s
+ => => transferring context: 2B                                                                      0.0s
+ => [eureka-server internal] load .dockerignore                                                      0.2s
+ => => transferring context: 2B                                                                      0.0s
+ => [api-gateway internal] load .dockerignore                                                        0.3s
+ => => transferring context: 2B                                                                      0.0s
+ => [api-gateway stage-1 1/3] FROM docker.io/library/eclipse-temurin:21-jre-alpine@sha256:704db3c  246.5s
+ => => resolve docker.io/library/eclipse-temurin:21-jre-alpine@sha256:704db3c40204a44f471191446ddd9  0.1s
+ => => sha256:2d1a277377d10ae29a58277bdefa13f3a1cfffb295a5b7bce5ad0b0d82661629 2.28kB / 2.28kB       2.3s
+ => => sha256:5ef4bf1bda3522f6b64c24ee154ed6739c8ab26c1be19e7b9e564bf0f39cbf22 16.86MB / 16.86MB   146.4s
+ => => sha256:42516208460b63f47d0044aef98b70571ce7765cc9108b0a3d14ae7fa16d7566 128B / 128B           2.6s
+ => => sha256:6e338134b21e530c8c101d288f216594c45a122a53f0d095568b2d0e943d8fec 53.30MB / 53.30MB   238.8s
+ => => extracting sha256:5ef4bf1bda3522f6b64c24ee154ed6739c8ab26c1be19e7b9e564bf0f39cbf22            1.3s
+ => => extracting sha256:6e338134b21e530c8c101d288f216594c45a122a53f0d095568b2d0e943d8fec            6.7s
+ => => extracting sha256:42516208460b63f47d0044aef98b70571ce7765cc9108b0a3d14ae7fa16d7566            0.0s
+ => => extracting sha256:2d1a277377d10ae29a58277bdefa13f3a1cfffb295a5b7bce5ad0b0d82661629            0.0s
+ => [etudiant-service builder 1/6] FROM docker.io/library/maven:3.9-eclipse-temurin-21@sha256:d6e  394.9s
+ => => resolve docker.io/library/maven:3.9-eclipse-temurin-21@sha256:d6e32a254897415a445654a3c43c30  0.1s
+ => => sha256:abad2c7c72ee4a44241d06dcc846c48bf7daa16e983a369ef8ec90d4b121e1ae 155B / 155B           0.6s
+ => => sha256:c2edec8e4e364041a99c936ea4b052dbd1e19d8103ca2d0e980f1f798fe24b5d 22.54MB / 22.54MB   118.1s
+ => => sha256:4734ae9315a00f746d07fd80a4dacec0ed0d2487caaed76e8f60f6d345617046 848B / 848B           0.9s
+ => => sha256:41000b8be55b1ac39f1ce72fa07e92bd7c562812c910b2a8360d810f57d8eb7a 9.31MB / 9.31MB      65.8s
+ => => sha256:ee78dd6a47528af4f12330b07b6f941bbd217e6278e89ba9875a41a50def41fa 0B / 2.28kB         370.4s
+ => => sha256:725f3390c4115f24528fbb7be27b2f2b4fc47a10c12ea80ca4d6bbd632155e54 156B / 156B           0.5s
+ => => sha256:117face21d4999b98333e39f0370ceccc72ca68ac796e6637469537582d5a61f 22.97MB / 22.97MB   103.4s
+ => => sha256:510ce46061a4b99d147c0b3deedae89dcd096b6c3e74b533cb783d18f9bab2d 158.17MB / 158.17MB  266.4s
+ => => sha256:b40150c1c2717d324cdb17278c8efdfa4dfcd2ffe083e976f0bcedf31115f081 29.73MB / 29.73MB    79.9s
+ => => extracting sha256:b40150c1c2717d324cdb17278c8efdfa4dfcd2ffe083e976f0bcedf31115f081            8.6s
+ => => extracting sha256:117face21d4999b98333e39f0370ceccc72ca68ac796e6637469537582d5a61f            6.6s
+ => => extracting sha256:510ce46061a4b99d147c0b3deedae89dcd096b6c3e74b533cb783d18f9bab2d6            3.8s
+ => => extracting sha256:725f3390c4115f24528fbb7be27b2f2b4fc47a10c12ea80ca4d6bbd632155e54            0.0s
+ => => extracting sha256:ee78dd6a47528af4f12330b07b6f941bbd217e6278e89ba9875a41a50def41fa            0.0s
+ => => extracting sha256:c2edec8e4e364041a99c936ea4b052dbd1e19d8103ca2d0e980f1f798fe24b5d            2.5s
+ => => extracting sha256:41000b8be55b1ac39f1ce72fa07e92bd7c562812c910b2a8360d810f57d8eb7a            0.3s
+ => => extracting sha256:4734ae9315a00f746d07fd80a4dacec0ed0d2487caaed76e8f60f6d345617046            0.0s
+ => => extracting sha256:abad2c7c72ee4a44241d06dcc846c48bf7daa16e983a369ef8ec90d4b121e1ae            0.0s
+ => [etudiant-service internal] load build context                                                   0.6s
+ => => transferring context: 40.07kB                                                                 0.4s
+ => [eureka-server internal] load build context                                                      0.6s
+ => => transferring context: 3.20kB                                                                  0.1s
+ => [api-gateway internal] load build context                                                        0.6s
+ => => transferring context: 4.10kB                                                                  0.3s
+ => [grading-service internal] load build context                                                    0.6s
+ => => transferring context: 16.61kB                                                                 0.4s
+ => [frontend builder 3/6] COPY package*.json ./                                                     0.1s
+ => [frontend builder 4/6] RUN npm install                                                         376.0s
+ => [api-gateway stage-1 2/3] WORKDIR /app                                                           0.7s
+ => [frontend builder 5/6] COPY . .                                                                  0.3s
+ => [frontend builder 6/6] RUN npm run build                                                        56.8s
+ => [grading-service builder 2/6] WORKDIR /app                                                       0.8s
+ => [etudiant-service builder 3/6] COPY pom.xml .                                                    0.1s
+ => [api-gateway builder 3/6] COPY pom.xml .                                                         0.2s
+ => [eureka-server builder 3/6] COPY pom.xml .                                                       0.1s
+ => [grading-service builder 3/6] COPY pom.xml .                                                     0.1s
+ => CANCELED [eureka-server builder 4/6] RUN mvn dependency:go-offline -q                           45.0s
+ => CANCELED [grading-service builder 4/6] RUN mvn dependency:go-offline -q                         45.1s
+ => CANCELED [etudiant-service builder 4/6] RUN mvn dependency:go-offline -q                        45.0s
+ => CANCELED [api-gateway builder 4/6] RUN mvn dependency:go-offline -q                             45.0s
+ => ERROR [frontend runner 3/5] COPY --from=builder /app/.next/standalone ./                         0.0s
+ => CACHED [frontend runner 4/5] COPY --from=builder /app/.next/static ./.next/static                0.0s
+ => ERROR [frontend runner 5/5] COPY --from=builder /app/public ./public                             0.0s
+------
+ > [frontend runner 3/5] COPY --from=builder /app/.next/standalone ./:
+------
+------
+ > [frontend runner 5/5] COPY --from=builder /app/public ./public:
+------
+Dockerfile:13
+
+--------------------
+
+  11 |     ENV NODE_ENV=production
+
+  12 |     ENV NEXT_TELEMETRY_DISABLED=1
+
+  13 | >>> COPY --from=builder /app/.next/standalone ./
+
+  14 |     COPY --from=builder /app/.next/static ./.next/static
+
+  15 |     COPY --from=builder /app/public ./public
+
+--------------------
+
+target frontend: failed to solve: failed to compute cache key: failed to calculate checksum of ref kf212a7cgoi0ex5np5o7duo4d::sz2nzhif362asiiidxf8j6ag0: "/app/.next/standalone": not found
+
+
+
+View build details: docker-desktop://dashboard/build/default/default/tltn3xf88or52wrthuon5vhpg
+
+
+C:\Users\omelk\Desktop\projet-etudiants>
