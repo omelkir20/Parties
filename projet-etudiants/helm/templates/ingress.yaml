@@ -1,0 +1,50 @@
+{{- if .Values.ingress.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: app-ingress
+  namespace: {{ .Values.global.namespace }}
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: {{ .Values.ingress.className }}
+  rules:
+    - host: {{ .Values.ingress.host }}
+      http:
+        paths:
+          - path: /api/etudiants
+            pathType: Prefix
+            backend:
+              service:
+                name: etudiant-service
+                port:
+                  number: {{ .Values.etudiantService.port }}
+          - path: /api/departements
+            pathType: Prefix
+            backend:
+              service:
+                name: etudiant-service
+                port:
+                  number: {{ .Values.etudiantService.port }}
+          - path: /api/notes
+            pathType: Prefix
+            backend:
+              service:
+                name: grading-service
+                port:
+                  number: {{ .Values.gradingService.port }}
+          - path: /auth
+            pathType: Prefix
+            backend:
+              service:
+                name: auth-service
+                port:
+                  number: {{ .Values.authService.port }}
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: frontend
+                port:
+                  number: {{ .Values.frontend.port }}
+{{- end }}

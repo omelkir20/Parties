@@ -1,6 +1,6 @@
-# Projet Étudiants — API REST + Microservices + Mobile
+# EduManager — Plateforme Microservices de Gestion des Étudiants
 
-Projet complet de gestion d'étudiants en architecture microservices, développé en trois parties.
+Projet complet de gestion d'étudiants en architecture microservices, développé en six parties (Parties 1–6).
 
 ---
 

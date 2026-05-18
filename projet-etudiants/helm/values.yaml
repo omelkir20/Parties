@@ -1,0 +1,60 @@
+global:
+  imageRegistry: "votre-username"
+  imageTag: "2.0"
+  namespace: default
+
+postgres:
+  image: postgres:16-alpine
+  storage: 1Gi
+  credentials:
+    database: postgres
+    username: postgres
+    password: postgres
+
+redis:
+  image: redis:7-alpine
+
+mongodb:
+  image: mongo:7
+  storage: 1Gi
+
+kafka:
+  image: confluentinc/cp-kafka:7.5.0
+  zookeeperImage: confluentinc/cp-zookeeper:7.5.0
+
+etudiantService:
+  replicas: 2
+  port: 8081
+  resources:
+    requests:
+      memory: "512Mi"
+      cpu: "250m"
+    limits:
+      memory: "1Gi"
+      cpu: "500m"
+
+gradingService:
+  replicas: 1
+  port: 8082
+  resources:
+    requests:
+      memory: "512Mi"
+      cpu: "250m"
+
+notificationService:
+  replicas: 1
+  port: 8083
+
+authService:
+  replicas: 1
+  port: 3001
+  jwtSecret: "secret_jwt_tres_long_et_securise"
+
+frontend:
+  replicas: 1
+  port: 3000
+
+ingress:
+  enabled: true
+  host: edumanager.local
+  className: nginx

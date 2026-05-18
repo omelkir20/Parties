@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: etudiant-service
+  namespace: {{ .Values.global.namespace }}
+  labels:
+    app: etudiant-service
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+spec:
+  replicas: {{ .Values.etudiantService.replicas }}
+  selector:
+    matchLabels:
+      app: etudiant-service
+  template:
+    metadata:
+      labels:
+        app: etudiant-service
+    spec:
+      containers:
+        - name: etudiant-service
+          image: {{ .Values.global.imageRegistry }}/etudiant-service:{{ .Values.global.imageTag }}
+          ports:
+            - containerPort: {{ .Values.etudiantService.port }}
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:postgresql://postgres:5432/{{ .Values.postgres.credentials.database }}
+            - name: SPRING_DATASOURCE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: POSTGRES_USER
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: POSTGRES_PASSWORD
+            - name: REDIS_HOST
+              value: redis
+            - name: SPRING_KAFKA_BOOTSTRAP_SERVERS
+              value: kafka:9092
+          resources:
+            {{- toYaml .Values.etudiantService.resources | nindent 12 }}
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: {{ .Values.etudiantService.port }}
+            initialDelaySeconds: 30
+            periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: etudiant-service
+  namespace: {{ .Values.global.namespace }}
+spec:
+  selector:
+    app: etudiant-service
+  ports:
+    - port: {{ .Values.etudiantService.port }}
+      targetPort: {{ .Values.etudiantService.port }}
+  type: ClusterIP

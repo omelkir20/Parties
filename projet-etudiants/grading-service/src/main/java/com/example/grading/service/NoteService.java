@@ -4,9 +4,9 @@ import com.example.grading.client.EtudiantClient;
 import com.example.grading.dto.NoteDTO;
 import com.example.grading.entity.Note;
 import com.example.grading.exception.ResourceNotFoundException;
+import com.example.grading.kafka.KafkaProducerService;
 import com.example.grading.mapper.NoteMapper;
 import com.example.grading.repository.NoteRepository;
-import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,38 +22,39 @@ public class NoteService {
     private final NoteRepository noteRepository;
     private final NoteMapper noteMapper;
     private final EtudiantClient etudiantClient;
+    private final KafkaProducerService kafkaProducerService;
 
     @Transactional(readOnly = true)
     public List<NoteDTO> findAll() {
         return noteRepository.findAll().stream()
-                .map(noteMapper::toDTO)
-                .collect(Collectors.toList());
+                .map(noteMapper::toDTO).collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
     public NoteDTO findById(Long id) {
         Note note = noteRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Note non trouvée avec l'id : " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Note non trouvee avec l'id : " + id));
         return noteMapper.toDTO(note);
     }
 
     @Transactional(readOnly = true)
     public List<NoteDTO> findByStudentId(Long studentId) {
         return noteRepository.findByStudentId(studentId).stream()
-                .map(noteMapper::toDTO)
-                .collect(Collectors.toList());
+                .map(noteMapper::toDTO).collect(Collectors.toList());
     }
 
     public NoteDTO save(NoteDTO dto) {
-        verifierExistenceEtudiant(dto.getStudentId());
+        etudiantClient.getEtudiantById(dto.getStudentId());
         Note note = noteMapper.toEntity(dto);
-        return noteMapper.toDTO(noteRepository.save(note));
+        NoteDTO saved = noteMapper.toDTO(noteRepository.save(note));
+        kafkaProducerService.publishNoteCreated(saved);
+        return saved;
     }
 
     public NoteDTO update(Long id, NoteDTO dto) {
         Note existing = noteRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Note non trouvée avec l'id : " + id));
-        verifierExistenceEtudiant(dto.getStudentId());
+                .orElseThrow(() -> new ResourceNotFoundException("Note non trouvee avec l'id : " + id));
+        etudiantClient.getEtudiantById(dto.getStudentId());
         existing.setStudentId(dto.getStudentId());
         existing.setMatiere(dto.getMatiere());
         existing.setValeur(dto.getValeur());
@@ -62,16 +63,8 @@ public class NoteService {
 
     public void delete(Long id) {
         if (!noteRepository.existsById(id)) {
-            throw new ResourceNotFoundException("Note non trouvée avec l'id : " + id);
+            throw new ResourceNotFoundException("Note non trouvee avec l'id : " + id);
         }
         noteRepository.deleteById(id);
-    }
-
-    private void verifierExistenceEtudiant(Long studentId) {
-        try {
-            etudiantClient.getEtudiantById(studentId);
-        } catch (FeignException.NotFound e) {
-            throw new IllegalArgumentException("Étudiant introuvable avec l'id : " + studentId);
-        }
     }
 }

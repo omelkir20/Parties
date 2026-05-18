@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grading-service
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grading-service
+  template:
+    metadata:
+      labels:
+        app: grading-service
+    spec:
+      containers:
+        - name: grading-service
+          image: votre-username/grading-service:2.0
+          ports:
+            - containerPort: 8082
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:postgresql://postgres:5432/postgres
+            - name: SPRING_DATASOURCE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: POSTGRES_USER
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: POSTGRES_PASSWORD
+            - name: SPRING_KAFKA_BOOTSTRAP_SERVERS
+              value: kafka:9092
+            - name: ETUDIANT_SERVICE_URL
+              value: http://etudiant-service:8081
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8082
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "1Gi"
+              cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: grading-service
+  namespace: default
+spec:
+  selector:
+    app: grading-service
+  ports:
+    - port: 8082
+      targetPort: 8082
+  type: ClusterIP

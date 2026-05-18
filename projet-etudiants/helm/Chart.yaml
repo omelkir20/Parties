@@ -1,0 +1,14 @@
+apiVersion: v2
+name: edumanager
+description: Plateforme microservices de gestion des etudiants
+type: application
+version: 2.0.0
+appVersion: "2.0.0"
+keywords:
+  - microservices
+  - spring-boot
+  - kafka
+  - kubernetes
+maintainers:
+  - name: Equipe EduManager
+    email: team@edumanager.com
